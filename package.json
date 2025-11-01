@@ -1,0 +1,21 @@
+{
+  "name": "clipboard-manager",
+  "version": "1.0.0",
+  "description": "A minimal clipboard manager utility",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [
+    "electron",
+    "clipboard",
+    "utility"
+  ],
+  "author": "Sema",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "electron": "^31.2.1"
+  }
+}
+

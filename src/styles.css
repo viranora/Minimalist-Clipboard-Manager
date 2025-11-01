@@ -1,0 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Lexend:wght@500;700&display=swap');
+
+:root {
+  /* Renk Paleti (Lila Tonları & Siyah Metin) */
+  --bg-gradient-start: #a18cd1; /* Lila */
+  --bg-gradient-mid: #fbc2eb;   /* Pembe */
+  --bg-gradient-end: #89f7fe;   /* Açık Mavi */
+  
+  --item-bg: rgba(255, 255, 255, 0.25); /* Yarı şeffaf beyaz */
+  --item-hover: rgba(255, 255, 255, 0.4);
+  
+  /* --- METİN RENKLERİ DEĞİŞTİ --- */
+  --text-primary: #000000 !important; /* Siyah metin (ZORLA) */
+  --text-secondary: #222222 !important; /* Koyu gri metin (ZORLA) */
+  --accent-color: #000000; /* Vurgu için siyah */
+  --success-color: #4CAF50;
+  --shadow-color: rgba(0, 0, 0, 0.15); /* Daha yumuşak gölge */
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  
+  /* CANLI GRADIENT ARKA PLAN */
+  background: linear-gradient(-45deg, var(--bg-gradient-start), var(--bg-gradient-mid), var(--bg-gradient-end));
+  background-size: 400% 400%; /* Animasyon için boyut */
+  animation: gradientAnimation 15s ease infinite; /* 15 saniyede bir döngü */
+  
+  color: var(--text-primary); /* Ana metin rengi siyah oldu */
+  overflow: hidden;
+  user-select: none;
+}
+
+/* Gradient Animasyonu Tanımı */
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+#app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; 
+}
+
+header {
+  padding: 20px 24px;
+  /* Başlık arka planı da yarı şeffaf beyaz oldu */
+  background: rgba(255, 255, 255, 0.2); 
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  box-shadow: 0 4px 12px var(--shadow-color);
+  z-index: 10;
+  /* Kenarlık da koyulaştı */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1); 
+}
+
+header h1 {
+  font-family: 'Lexend', sans-serif;
+  font-size: 1.25rem;
+  margin: 0;
+  font-weight: 700;
+  color: var(--text-primary) !important; /* (ZORLA) */
+  /* Beyaz parlama kaldırıldı, yerini koyu gölge aldı */
+  text-shadow: 0 2px 4px var(--shadow-color); 
+}
+
+#history-list {
+  flex-grow: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+}
+
+/* Kaydırma çubuğu stili (Koyu) */
+#history-list::-webkit-scrollbar {
+  width: 6px;
+}
+#history-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+#history-list::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2); /* Koyu kaydırma çubuğu */
+  border-radius: 3px;
+}
+#history-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.4); 
+}
+
+.history-item {
+  background: var(--item-bg); /* Yarı şeffaf beyaz arka plan */
+  backdrop-filter: blur(5px); 
+  -webkit-backdrop-filter: blur(5px);
+  
+  padding: 14px 18px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-secondary) !important; /* Koyu gri metin (ZORLA) */
+  
+  border: 1px solid rgba(0, 0, 0, 0.1); /* İnce koyu kenarlık */
+  box-shadow: 0 2px 8px var(--shadow-color);
+  
+  opacity: 0;
+  transform: scale(0.95);
+  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.history-item.fade-in {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.history-item:hover {
+  background-color: var(--item-hover);
+  color: var(--text-primary) !important; /* Tam siyah metin (ZORLA) */
+  border-color: var(--accent-color); /* Siyah kenarlık */
+  transform: scale(1.03);
+  /* Koyu parlama efekti */
+  box-shadow: 0 4px 16px var(--shadow-color), 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+/* --- Kopyalandı Bildirimi --- */
+/* Bu bölümün beyaz metinli kalması doğru (Yeşil arka plan) */
+#notification {
+  background: linear-gradient(45deg, var(--success-color), #66bb6a);
+  color: white; 
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  
+  position: fixed;
+  bottom: 25px;
+  left: 50%;
+  
+  transform: translate(-50%, 20px);
+  
+  opacity: 0;
+  transition: all 0.3s ease-out;
+  pointer-events: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+#notification.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
